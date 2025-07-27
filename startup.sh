@@ -20,13 +20,4 @@ CLIENT_PID=$!
 wait $SERVER_PID
 wait $CLIENT_PID
 
-cd ../server
-npm run dev &
-
-cd ../client
-npm run dev &
-
-echo "Server running on http://localhost:5000"
-echo "Client running on http://localhost:5173"
-
 wait
