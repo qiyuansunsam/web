@@ -1,23 +1,16 @@
 #!/bin/bash
 
-# Install Node.js if not already installed
-if ! command -v node &> /dev/null; then
-    echo "Installing Node.js..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-fi
+echo "Building Portfolio Website..."
 
-echo "Starting Portfolio Website..."
-
+# Install server dependencies
+echo "Installing server dependencies..."
 cd server
-npm install &
-SERVER_PID=$!
+npm install
 
+# Install client dependencies and build
+echo "Installing client dependencies and building..."
 cd ../client
-npm install &
-CLIENT_PID=$!
+npm install
+npm run build
 
-wait $SERVER_PID
-wait $CLIENT_PID
-
-wait
+echo "Build completed successfully!"
