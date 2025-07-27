@@ -1,0 +1,125 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  background: linear-gradient(135deg, var(--primary-white) 0%, var(--metallic) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.desktopNav {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.navLink {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--metallic-light);
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.navLink:hover {
+  color: var(--primary-white);
+}
+
+.navLink.active {
+  color: var(--primary-white);
+}
+
+.underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-2);
+}
+
+.menuToggle {
+  display: none;
+  background: transparent;
+  color: var(--primary-white);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.menuToggle:hover {
+  transform: rotate(90deg);
+}
+
+.mobileNav {
+  display: none;
+  background: var(--secondary-black);
+  border-top: 1px solid rgba(192, 192, 192, 0.1);
+  overflow: hidden;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--metallic-light);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.05);
+}
+
+.mobileNavLink:hover,
+.mobileNavLink.active {
+  color: var(--primary-white);
+  background: rgba(192, 192, 192, 0.05);
+}
+
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+
+  .container {
+    padding: 1rem 1.5rem;
+  }
+}
