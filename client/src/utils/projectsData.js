@@ -125,5 +125,50 @@ export const projectsData = [
     ],
     github: "https://github.com/qiyuansunsam/ChatWeb.git",
     live: "#"
+  },
+  {
+    id: 7,
+    title: "Sketch My Hair",
+    shortDescription: "Android hairstyle visualization and AI generation app",
+    fullDescription: "Sketch My Hair is an Android hairstyle application that allows users to create and visualize different hair styles. Users can draw on a canvas with various tools and colors, select reference images for inspiration, and generate new hairstyles using AI. The app features a unified navigation interface with floating design elements that provide context-aware tools for drawing, reference selection, and style generation across three main tabs. This is a continuation of my sketch based image retrieval university project.",
+    technologies: ["Kotlin", "Gradle", "Machine Learning", "Mobile Development", "Android SDK", "AI/ML"],
+    images: [
+      "/images/projects/smh/main.jpg",
+      "/images/projects/smh/7a9cbc167cab008bd155839dcd7c608.jpg",
+      "/images/projects/smh/ebdf97e94b31549510e59cb95e2bd43.jpg"
+    ],
+    features: [
+      "Interactive canvas drawing with various tools and colors",
+      "Reference image selection for hairstyle inspiration",
+      "AI-powered hairstyle generation",
+      "Unified navigation with floating design elements",
+      "Context-aware tools across three main tabs",
+      "Mobile-optimized user experience",
+      "Integration with sketch-based image retrieval technology"
+    ],
+    github: "https://github.com/qiyuansunsam/smh.git",
+    live: "#"
+  },
+  {
+    id: 8,
+    title: "Personal Portfolio Website",
+    shortDescription: "Full-stack responsive portfolio with modern UI/UX design",
+    fullDescription: "Developed a full-stack responsive portfolio website showcasing professional projects and skills. Implemented modern UI/UX design with smooth animations, interactive project galleries with video thumbnails, downloadable documents, and a contact form with email integration. Features include dynamic project cards, multi-image displays, PDF downloads, and mobile-responsive design optimized for professional presentation.",
+    technologies: ["React", "Node.js", "Express", "Framer Motion", "JavaScript", "HTML/CSS", "Git", "Render"],
+    images: [
+      "/images/projects/web/main.png"
+    ],
+    features: [
+      "Modern UI/UX design with smooth animations",
+      "Interactive project galleries with video thumbnails",
+      "Downloadable documents and PDF integration",
+      "Contact form with email integration",
+      "Dynamic project cards with multi-image displays",
+      "Mobile-responsive design",
+      "Professional presentation optimization",
+      "Full-stack architecture with React and Node.js"
+    ],
+    github: "https://github.com/qiyuansunsam/web",
+    live: "#"
   }
 ]
