@@ -209,8 +209,7 @@ const Home = () => {
                   initial={{ scale: 0 }}
                   animate={inView ? { scale: 1 } : {}}
                   transition={{ delay: 0.7 + index * 0.05 }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
+                  whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                   style={{
                     background: 'linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)',
                     padding: '0.8rem 1.5rem',

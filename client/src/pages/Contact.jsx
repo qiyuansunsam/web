@@ -7,20 +7,20 @@ const Contact = () => {
     {
       icon: <FiMail size={24} />,
       label: "Email",
-      value: "your.email@example.com",
-      link: "mailto:your.email@example.com"
+      value: "qiyuansunsam@gmail.com",
+      link: "mailto:qiyuansunsam@gmail.com"
     },
     {
       icon: <FiLinkedin size={24} />,
       label: "LinkedIn",
-      value: "linkedin.com/in/yourprofile",
-      link: "https://linkedin.com/in/yourprofile"
+      value: "linkedin.com/in/qiyuan-sun-6a19a615a",
+      link: "https://www.linkedin.com/in/qiyuan-sun-6a19a615a/"
     },
     {
       icon: <FiGithub size={24} />,
       label: "GitHub",
-      value: "github.com/yourusername",
-      link: "https://github.com/yourusername"
+      value: "github.com/qiyuansunsam",
+      link: "https://github.com/qiyuansunsam"
     },
     {
       icon: <FiMapPin size={24} />,

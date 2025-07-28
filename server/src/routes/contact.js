@@ -1,6 +1,7 @@
 import express from 'express'
 import { body, validationResult } from 'express-validator'
-import { sendEmail } from '../config/email.js'
+import fs from 'fs'
+import path from 'path'
 
 const router = express.Router()
 
@@ -11,6 +12,35 @@ const contactValidation = [
   body('message').notEmpty().trim().escape()
 ]
 
+const logContactMessage = (messageData) => {
+  const timestamp = new Date().toISOString()
+  const logEntry = {
+    timestamp,
+    ...messageData
+  }
+  
+  const logMessage = `
+=== CONTACT FORM SUBMISSION ===
+Date: ${timestamp}
+Name: ${messageData.name}
+Email: ${messageData.email}
+Subject: ${messageData.subject}
+Message: ${messageData.message}
+=====================================
+
+`
+  
+  const logDir = path.join(process.cwd(), 'logs')
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true })
+  }
+  
+  const logFile = path.join(logDir, 'contact-messages.log')
+  fs.appendFileSync(logFile, logMessage)
+  
+  console.log('📧 New contact message received:', logEntry)
+}
+
 router.post('/', contactValidation, async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -20,23 +50,11 @@ router.post('/', contactValidation, async (req, res) => {
   const { name, email, subject, message } = req.body
 
   try {
-    await sendEmail({
-      to: process.env.RECIPIENT_EMAIL,
-      subject: `Portfolio Contact: ${subject}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `
-    })
-
-    res.json({ success: true, message: 'Email sent successfully' })
+    logContactMessage({ name, email, subject, message })
+    res.json({ success: true, message: 'Message recorded successfully' })
   } catch (error) {
-    console.error('Email error:', error)
-    res.status(500).json({ success: false, message: 'Failed to send email' })
+    console.error('Logging error:', error)
+    res.status(500).json({ success: false, message: 'Failed to record message' })
   }
 })
 
