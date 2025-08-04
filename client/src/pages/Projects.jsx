@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ProjectCard from '../components/ProjectCard/ProjectCard'
@@ -122,6 +122,7 @@ const Projects = () => {
   )
 }
 
+
 const ProjectDetail = ({ project, onClose }) => {
   return (
     <div>
@@ -157,11 +158,12 @@ const ProjectDetail = ({ project, onClose }) => {
         <div style={{ marginBottom: '2rem' }}>
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: project.demo && project.images && project.images.length > 0 
-              ? 'repeat(auto-fit, minmax(250px, 1fr))' 
-              : project.images && project.images.length === 1 ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '1rem',
-            marginBottom: '2rem' 
+            gridTemplateColumns: project.images && project.images.length === 1 
+              ? '1fr' 
+              : 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '1.5rem',
+            marginBottom: '2rem',
+            alignItems: 'start'
           }}>
             {project.demo && (
               <motion.video
@@ -172,10 +174,11 @@ const ProjectDetail = ({ project, onClose }) => {
                 transition={{ delay: 0 }}
                 style={{
                   width: '100%',
-                  height: '200px',
-                  objectFit: 'cover',
+                  height: 'auto',
+                  objectFit: 'contain',
                   borderRadius: '10px',
-                  border: '1px solid var(--metallic-dark)'
+                  border: '1px solid var(--metallic-dark)',
+                  maxHeight: '400px'
                 }}
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -192,10 +195,11 @@ const ProjectDetail = ({ project, onClose }) => {
                 transition={{ delay: project.demo ? (index + 1) * 0.1 : index * 0.1 }}
                 style={{
                   width: '100%',
-                  height: '200px',
-                  objectFit: 'cover',
+                  height: 'auto',
+                  objectFit: 'contain',
                   borderRadius: '10px',
-                  border: '1px solid var(--metallic-dark)'
+                  border: '1px solid var(--metallic-dark)',
+                  maxHeight: '400px'
                 }}
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -206,9 +210,13 @@ const ProjectDetail = ({ project, onClose }) => {
         </div>
       )}
 
-      <p style={{ fontSize: '1.2rem', marginBottom: '2rem', color: 'var(--metallic-light)' }}>
-        {project.fullDescription}
-      </p>
+      <div style={{ fontSize: '1.2rem', marginBottom: '2rem', color: 'var(--metallic-light)' }}>
+        {project.fullDescription.split('\n\n').map((paragraph, index) => (
+          <p key={index} style={{ marginBottom: '1.5rem', lineHeight: '1.6' }}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
 
       <div style={{ marginBottom: '2rem' }}>
         <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Key Features</h3>

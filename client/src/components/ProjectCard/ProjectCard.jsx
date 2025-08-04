@@ -1,9 +1,27 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiGithub, FiExternalLink, FiDownload } from 'react-icons/fi'
 import Tilt from 'react-parallax-tilt'
 import styles from './ProjectCard.module.css'
 
 const ProjectCard = ({ project, onClick }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  // Check if project is mobile/app related to use contain instead of cover
+  const isMobileApp = project.title.toLowerCase().includes('android') || 
+                      project.title.toLowerCase().includes('mobile') ||
+                      project.title.toLowerCase().includes('app')
+
+  useEffect(() => {
+    if (!project.demo && project.images && project.images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % project.images.length)
+      }, 2000) // Change image every 2 seconds
+
+      return () => clearInterval(interval)
+    }
+  }, [project.demo, project.images])
+
   return (
     <Tilt
       className={styles.tiltContainer}
@@ -37,16 +55,42 @@ const ProjectCard = ({ project, onClick }) => {
             />
           ) : null}
           {project.images && project.images.length > 0 ? (
-            <img 
-              src={project.images[0]} 
-              alt={project.title}
-              className={styles.projectImage}
-              style={{display: project.demo ? 'none' : 'block'}}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextElementSibling.style.display = 'flex';
-              }}
-            />
+            project.images.length > 1 && !project.demo ? (
+              <div className={styles.imageCarousel} style={{display: project.demo ? 'none' : 'block'}}>
+                {project.images.map((image, index) => (
+                  <img 
+                    key={index}
+                    src={image} 
+                    alt={`${project.title} - ${index + 1}`}
+                    className={styles.projectImage}
+                    style={{
+                      opacity: index === currentImageIndex ? 1 : 0,
+                      transition: 'opacity 0.5s ease-in-out',
+                      objectFit: isMobileApp ? 'contain' : 'cover',
+                      background: isMobileApp ? '#1a1a1a' : 'transparent'
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <img 
+                src={project.images[0]} 
+                alt={project.title}
+                className={styles.projectImage}
+                style={{
+                  display: project.demo ? 'none' : 'block',
+                  objectFit: isMobileApp ? 'contain' : 'cover',
+                  background: isMobileApp ? '#1a1a1a' : 'transparent'
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextElementSibling.style.display = 'flex';
+                }}
+              />
+            )
           ) : null}
           <div className={styles.imagePlaceholder} style={{display: (project.demo || (project.images && project.images.length > 0)) ? 'none' : 'flex'}}>
             <span>{project.title.charAt(0)}</span>
